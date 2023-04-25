@@ -1,0 +1,47 @@
+﻿@using Primera_Web_App.Models
+@model Empleado
+
+@{
+    ViewBag.Title = "Agregar";
+    List<SelectListItem> listaSexo = (List<SelectListItem>)ViewBag.lista;
+}
+
+<h1>Agregar Empleado</h1>
+
+<div class="row">
+    <div class="row-cols-6">
+        @using (Html.BeginForm("Agregar", "Empleado", FormMethod.Post))
+        {
+            <div>
+                @Html.LabelFor(p => p.NOMBRE)
+                @Html.TextBoxFor(p => p.NOMBRE, new { @class = "form-control" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.APELLIDO)
+                @Html.TextBoxFor(p => p.APELLIDO, new { @class = "form-control" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.FECHACONTRATO)
+                @Html.TextBoxFor(p => p.FECHACONTRATO, new { @class = "form-control" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.SUELDO)
+                @Html.TextBoxFor(p => p.SUELDO, new { @class = "form-control" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.IDSEXO)
+                @Html.DropDownList("IDSEXO", listaSexo, null, new {@class = "form-control"})
+                @Html.ValidationMessage("Sexo", new {@class = "text-danger"})
+            </div>
+            <br />
+            <div style="margin:auto">
+                <input type="submit" class="btn btn-primary" value="Agregar" />
+            </div>
+        }
+
+    </div>
+</div>

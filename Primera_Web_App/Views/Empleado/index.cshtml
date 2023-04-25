@@ -1,0 +1,42 @@
+﻿@model List<Primera_Web_App.Models.EmpleadoCLS>
+
+
+<h2>Listado de Empleados</h2>
+@Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary" })
+<br />
+
+<table class="table tab-content table-bordered table-hover">
+    <tr>
+        <td>#</td>
+        <td width="30%">Nombre</td>
+        <td width="30%">Apellido</td>
+        <td width="50%">Fecha de Contrato</td>
+        <td width="10%">Sueldo</td>
+        <td width="5%">Tipo de Usuario</td>
+        <td width="5%">Tipo de Contrato</td>
+        <td width="5%">Sexo</td>
+        <td width="5%">Habilitado</td>
+        <td width="5%">Usuario</td>
+        <td width="5%">Tipo de Usuario</td>
+    </tr>
+    <tbody>
+        @foreach (var oElemento in Model)
+        {
+            <tr>
+                <td>@oElemento.IDEMPLEADO</td>
+                <td>@oElemento.NOMBRE</td>
+                <td>@oElemento.APELLIDO</td>
+                <td>@oElemento.FECHACONTRATO</td>
+                <td>@oElemento.SUELDO</td>
+                <td align="center">@oElemento.IDTIPOUSUARIO</td>
+                <td align="center">@oElemento.IDTIPOCONTRATO</td>
+                <td align="center">@oElemento.IDSEXO</td>
+                <td align="center">@oElemento.HABILITADO</td>
+                <td align="center">@oElemento.TIENEUSUARIO</td>
+                <td align="center">@oElemento.TIPOUSUARIO</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
