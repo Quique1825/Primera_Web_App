@@ -10,18 +10,12 @@ namespace Primera_Web_App.Models
 {
     public class UsuarioCLS
     {
-        [BindProperty]
-        public InputModel Input {get; set;}
-
-        [TempData]
-        public string ErrorMessage { get; set; }
-
-        public class InputModel
-        {
             public int ID_USUARIO { get; set; }
-            [Required]
-            public string USER { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "El campo Nombre de usuario es requerido.")]
+            public string USUARIO { get; set; }
+
+            [Required(ErrorMessage = "El campo Contraseña es requerido.")]
             [DataType(DataType.Password)]
             public string PASSWORD { get; set; }
 
@@ -29,6 +23,10 @@ namespace Primera_Web_App.Models
             public string TIPOUSUARIO { get; set; }
 
             public string ConfirmarClave { get; set; }
-        }
+
+        public String nombreUsuario { get; set; }
+        public String contraseña { get; set; }
+
+
     }
 }

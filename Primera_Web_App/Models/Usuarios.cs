@@ -12,12 +12,19 @@ namespace Primera_Web_App.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Usuarios
     {
         public int ID_USUARIO { get; set; }
-        public string USER { get; set; }
+        public string USUARIO { get; set; }
         public string PASSWORD { get; set; }
+
+        internal bool Autenticar(string nombreUsuario, string contraseña)
+        {
+            throw new NotImplementedException();
+        }
+
         public Nullable<int> HABILITADO { get; set; }
         public string TIPOUSUARIO { get; set; }
+        public string ConfirmarClave { get; internal set; }
     }
 }

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using Primera_Web_App.Permisos;
 
 namespace Primera_Web_App.Controllers
 {
     public class HomeController : Controller
     {
+        [ValidarSesion]
+
         public ActionResult Index()
         {
             return View();
@@ -25,6 +29,28 @@ namespace Primera_Web_App.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Empleado()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+
+        public ActionResult CerrarSesion()
+        {
+            Session["usuario"] = null;
+            return RedirectToAction("Login", "Login");
+
+        }
+
+    
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Index();
         }
     }
 }

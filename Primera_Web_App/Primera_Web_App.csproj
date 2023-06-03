@@ -51,6 +51,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\Downloads\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
     </Reference>
@@ -181,6 +187,7 @@
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -328,16 +335,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmpleadoModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogUserCLS.cs" />
     <Compile Include="Models\SEXO.cs">
       <DependentUpon>EmpleadoModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SexoCLS.cs" />
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>EmpleadoModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Usuario.cs">
+    <Compile Include="Models\UsuarioCLS.cs" />
+    <Compile Include="Models\Usuarios.cs">
       <DependentUpon>EmpleadoModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UsuarioCLS.cs" />
+    <Compile Include="Permisos\ValidarSesionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +355,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\LoginStyle.css" />
+    <Content Include="Content\Imagenes\img_login.jpg" />
+    <Content Include="Content\Imagenes\img_login1.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -397,6 +410,8 @@
     <Content Include="Views\Empleado\index.cshtml" />
     <Content Include="Views\Empleado\Agregar.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Registrar.cshtml" />
+    <Content Include="Views\Empleado\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,15 +39,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="ID_USUARIO" />
           </Key>
-          <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="USER" Type="varchar" MaxLength="25" />
-          <Property Name="PASSWORD" Type="varchar" MaxLength="25" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="150" />
           <Property Name="HABILITADO" Type="int" />
-          <Property Name="TIPOUSUARIO" Type="char" MaxLength="1" />
+          <Property Name="TIPOUSUARIO" Type="varchar" MaxLength="2" />
         </EntityType>
         <Association Name="FK_Empleado_SEXO">
           <End Role="SEXO" Type="Self.SEXO" Multiplicity="0..1" />
@@ -65,7 +65,7 @@
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEXO" EntityType="Self.SEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Empleado_SEXO" Association="Self.FK_Empleado_SEXO">
             <End Role="SEXO" EntitySet="SEXO" />
             <End Role="Empleado" EntitySet="Empleado" />
@@ -79,7 +79,7 @@
           <EntitySet Name="Empleado" EntityType="Model.Empleado" />
           <EntitySet Name="SEXO" EntityType="Model.SEXO" />
           <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
-          <EntitySet Name="Usuario" EntityType="Model.Usuario" />
+          <EntitySet Name="Usuarios" EntityType="Model.Usuarios" />
           <AssociationSet Name="FK_Empleado_SEXO" Association="Model.FK_Empleado_SEXO">
             <End Role="SEXO" EntitySet="SEXO" />
             <End Role="Empleado" EntitySet="Empleado" />
@@ -121,15 +121,15 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="ID_USUARIO" />
           </Key>
-          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="HABILITADO" Type="Int32" />
-          <Property Name="TIPOUSUARIO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TIPOUSUARIO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Empleado_SEXO">
           <End Type="Model.SEXO" Role="SEXO" Multiplicity="0..1" />
@@ -186,13 +186,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="Model.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Model.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="TIPOUSUARIO" ColumnName="TIPOUSUARIO" />
                 <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="USER" ColumnName="USER" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
               </MappingFragment>
             </EntityTypeMapping>

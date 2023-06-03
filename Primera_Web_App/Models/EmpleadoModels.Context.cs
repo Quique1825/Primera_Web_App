@@ -28,6 +28,6 @@ namespace Primera_Web_App.Models
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<SEXO> SEXO { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }
