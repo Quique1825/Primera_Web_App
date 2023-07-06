@@ -20,6 +20,7 @@
           <Property Name="HABILITADO" Type="int" />
           <Property Name="TIENEUSUARIO" Type="int" />
           <Property Name="TIPOUSUARIO" Type="char" MaxLength="1" />
+          <Property Name="NUMDOCUMENTO" Type="nvarchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="SEXO">
           <Key>
@@ -48,6 +49,7 @@
           <Property Name="PASSWORD" Type="varchar" MaxLength="150" />
           <Property Name="HABILITADO" Type="int" />
           <Property Name="TIPOUSUARIO" Type="varchar" MaxLength="2" />
+          <Property Name="NOMUSUARIO" Type="nchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK_Empleado_SEXO">
           <End Role="SEXO" Type="Self.SEXO" Multiplicity="0..1" />
@@ -100,6 +102,7 @@
           <Property Name="HABILITADO" Type="Int32" />
           <Property Name="TIENEUSUARIO" Type="Int32" />
           <Property Name="TIPOUSUARIO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NUMDOCUMENTO" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SEXO" Relationship="Model.FK_Empleado_SEXO" FromRole="Empleado" ToRole="SEXO" />
         </EntityType>
         <EntityType Name="SEXO">
@@ -130,6 +133,7 @@
           <Property Name="PASSWORD" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="HABILITADO" Type="Int32" />
           <Property Name="TIPOUSUARIO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="NOMUSUARIO" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_Empleado_SEXO">
           <End Type="Model.SEXO" Role="SEXO" Multiplicity="0..1" />
@@ -152,6 +156,7 @@
           <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="Model.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="NUMDOCUMENTO" ColumnName="NUMDOCUMENTO" />
                 <ScalarProperty Name="TIPOUSUARIO" ColumnName="TIPOUSUARIO" />
                 <ScalarProperty Name="TIENEUSUARIO" ColumnName="TIENEUSUARIO" />
                 <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
@@ -189,6 +194,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="Model.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="NOMUSUARIO" ColumnName="NOMUSUARIO" />
                 <ScalarProperty Name="TIPOUSUARIO" ColumnName="TIPOUSUARIO" />
                 <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />

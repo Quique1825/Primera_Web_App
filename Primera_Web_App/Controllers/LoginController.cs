@@ -24,43 +24,32 @@ namespace Primera_Web_App.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(UsuarioCLS logUser)
         {
-            Boolean iniciar = false;
-            try
-            {
+            if(ModelState.IsValid)
+              {
                 using (var db = new P_W_A_Entities())
                 {
-                    Usuarios usuarios = (from us in db.Usuarios
-                                         where us.USUARIO.ToUpper() == logUser.nombreUsuario.ToUpper()
-                                         where us.PASSWORD.ToUpper() == logUser.contraseña.ToUpper()
-                                         select new Usuarios
-                                         {
-                                             USUARIO = us.USUARIO
-                                         }
-                ).FirstOrDefault();
-                    if(usuarios != null)
+                    var usu = db.Usuarios.Where(us => us.USUARIO.Equals(logUser.USUARIO) && us.PASSWORD.Equals(logUser.PASSWORD)).FirstOrDefault();
+                    if(usu != null)
                     {
-                        ViewBag.nombreUsuario = usuarios.USUARIO;
-                        iniciar = true;
+                        Session["UserId"] = usu.ID_USUARIO.ToString();
+                        Session["Username"] = usu.USUARIO.ToString();
+                        Session["Saludo"] = usu.NOMUSUARIO.ToString();
+                        return RedirectToAction("Index", "Empleado");                           
                     }
                 }
             }
-            catch
-            {
-
-            }
-
-            if(!iniciar)
-            {
-                ViewBag.Error = "Usuario/Contraseña Incorrectos";
-                return View(logUser);
-            }
-            else
-            {
-                return RedirectToAction("Listado", "Empleado");
-            }
+            return View(logUser);            
         }
 
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
 }

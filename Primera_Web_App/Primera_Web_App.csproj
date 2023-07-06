@@ -335,7 +335,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmpleadoModels.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\LogUserCLS.cs" />
     <Compile Include="Models\SEXO.cs">
       <DependentUpon>EmpleadoModels.tt</DependentUpon>
     </Compile>
@@ -362,6 +361,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="LoginWeb\css\font-awesome.css" />
+    <Content Include="LoginWeb\css\style.css" />
+    <Content Include="LoginWeb\fonts\fontawesome-webfont.svg" />
+    <Content Include="LoginWeb\images\into.png" />
+    <Content Include="LoginWeb\index.html" />
+    <Content Include="LoginWeb\js\jquery.min.js" />
+    <Content Include="LoginWeb\w3layouts-License.txt" />
     <Content Include="Models\EmpleadoModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EmpleadoModels.Context.cs</LastGenOutput>
@@ -381,6 +387,12 @@
     <Content Include="Models\EmpleadoModels.edmx.diagram">
       <DependentUpon>EmpleadoModels.edmx</DependentUpon>
     </Content>
+    <Content Include="LoginWeb\fonts\fontawesome-webfont.eot" />
+    <Content Include="LoginWeb\fonts\fontawesome-webfont.ttf" />
+    <Content Include="LoginWeb\fonts\fontawesome-webfont.woff" />
+    <Content Include="LoginWeb\fonts\fontawesome-webfont.woff2" />
+    <Content Include="LoginWeb\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -412,6 +424,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Registrar.cshtml" />
     <Content Include="Views\Empleado\Editar.cshtml" />
+    <Content Include="Views\Empleado\EmpEliminado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

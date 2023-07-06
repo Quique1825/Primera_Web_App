@@ -41,9 +41,13 @@ namespace Primera_Web_App.Models
             [Display(Name = "Usuario Tipo")]
             public string TIPOUSUARIO { get; set; }
 
-          
+            [Required]
+            [Display(Name = "Número de Documento")]
+            public string NUMDOCUMENTO { get; set; }
 
-            public virtual SEXO Sexo { get; set; }
+            public string mensajeError { get; set; }
+
+           public virtual SEXO Sexo { get; set; }
 
     }
 }

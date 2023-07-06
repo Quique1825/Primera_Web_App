@@ -33,7 +33,7 @@ namespace Primera_Web_App.Controllers
                 float[] values = new float[4] { 30, 40, 40, 40 };
                 tabla.SetWidths(values);
 
-                PdfPCell celda1 = new PdfPCell(new Phrase ("ID EMPLEADO"));
+                PdfPCell celda1 = new PdfPCell(new Phrase("ID EMPLEADO"));
                 celda1.BackgroundColor = new BaseColor(130, 130, 130);
                 celda1.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
                 tabla.AddCell(celda1);
@@ -55,7 +55,7 @@ namespace Primera_Web_App.Controllers
 
                 List<EmpleadoCLS> lista = (List<EmpleadoCLS>)Session["lista"];
                 int num_reg = lista.Count();
-                for(int i = 0; i < num_reg; i++)
+                for (int i = 0; i < num_reg; i++)
                 {
                     tabla.AddCell(lista[i].IDEMPLEADO.ToString());
                     tabla.AddCell(lista[i].NOMBRE);
@@ -82,16 +82,16 @@ namespace Primera_Web_App.Controllers
                 ew.Cells[1, 3].Value = "Apellido";
                 ew.Cells[1, 4].Value = "Fecha Contrato";
                 ew.Cells[1, 5].Value = "Sueldo";
-                
+
 
                 ew.Column(1).Width = 20;
                 ew.Column(2).Width = 60;
                 ew.Column(3).Width = 60;
                 ew.Column(4).Width = 60;
                 ew.Column(5).Width = 60;
-                
 
-                using(var range = ew.Cells[1,1,1,6])
+
+                using (var range = ew.Cells[1, 1, 1, 6])
                 {
                     range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     range.Style.Font.Color.SetColor(Color.White);
@@ -99,7 +99,7 @@ namespace Primera_Web_App.Controllers
                 }
                 List<EmpleadoCLS> lista = (List<EmpleadoCLS>)Session["lista"];
                 int nregistros = lista.Count;
-                for(int i = 0; i < nregistros; i++)
+                for (int i = 0; i < nregistros; i++)
                 {
                     ew.Cells[i + 2, 1].Value = lista[i].IDEMPLEADO;
                     ew.Cells[i + 2, 2].Value = lista[i].NOMBRE;
@@ -117,40 +117,95 @@ namespace Primera_Web_App.Controllers
         {
             string apeEmp = oEmpleadoCLS.APELLIDO;
             List<EmpleadoCLS> lst = null;
-            using (var db = new P_W_A_Entities())
+            if (Session["UserId"] == null)
             {
-                if (oEmpleadoCLS.APELLIDO == null)
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                using (var db = new P_W_A_Entities())
                 {
-                    lst = (from empleado in db.Empleado
-                           where empleado.HABILITADO == 1
-                           select new EmpleadoCLS
-                           {
-                               IDEMPLEADO = empleado.IDEMPLEADO,
-                               NOMBRE = empleado.NOMBRE,
-                               APELLIDO = empleado.APELLIDO,
-                               FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
-                               SUELDO = (decimal)empleado.SUELDO,
-                               IDSEXO = (int)empleado.IDSEXO,
-                           }).ToList();
-                    Session["lista"] = lst;
-                }
-                else
-                {
-                    lst = (from empleado in db.Empleado
-                           where empleado.HABILITADO == 1 && empleado.APELLIDO.Contains(apeEmp)
-                           select new EmpleadoCLS
-                           {
-                               IDEMPLEADO = empleado.IDEMPLEADO,
-                               NOMBRE = empleado.NOMBRE,
-                               APELLIDO = empleado.APELLIDO,
-                               FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
-                               SUELDO = (decimal)empleado.SUELDO,
-                               IDSEXO = (int)empleado.IDSEXO,
-                           }).ToList();
-                    Session["lista"] = lst;
-                }
+                    if (oEmpleadoCLS.APELLIDO == null)
+                    {
+                        lst = (from empleado in db.Empleado
+                               where empleado.HABILITADO == 1
+                               select new EmpleadoCLS
+                               {
+                                   IDEMPLEADO = empleado.IDEMPLEADO,
+                                   NOMBRE = empleado.NOMBRE,
+                                   APELLIDO = empleado.APELLIDO,
+                                   FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
+                                   SUELDO = (decimal)empleado.SUELDO,
+                                   IDSEXO = (int)empleado.IDSEXO,
+                               }).ToList();
+                        Session["lista"] = lst;
+                    }
+                    else
+                    {
+                        lst = (from empleado in db.Empleado
+                               where empleado.HABILITADO == 1 && empleado.APELLIDO.Contains(apeEmp)
+                               select new EmpleadoCLS
+                               {
+                                   IDEMPLEADO = empleado.IDEMPLEADO,
+                                   NOMBRE = empleado.NOMBRE,
+                                   APELLIDO = empleado.APELLIDO,
+                                   FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
+                                   SUELDO = (decimal)empleado.SUELDO,
+                                   IDSEXO = (int)empleado.IDSEXO,
+                               }).ToList();
+                        Session["lista"] = lst;
+                    }
 
-                return View(lst);
+                    return View(lst);
+                }
+            }
+        }
+
+        public ActionResult EmpEliminado(EmpleadoCLS oEmpleadoCLS)
+        {
+            string apeEmp = oEmpleadoCLS.APELLIDO;
+            List<EmpleadoCLS> lst = null;
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                using (var db = new P_W_A_Entities())
+                {
+                    if (oEmpleadoCLS.APELLIDO == null)
+                    {
+                        lst = (from empleado in db.Empleado
+                               where empleado.HABILITADO == 0
+                               select new EmpleadoCLS
+                               {
+                                   IDEMPLEADO = empleado.IDEMPLEADO,
+                                   NOMBRE = empleado.NOMBRE,
+                                   APELLIDO = empleado.APELLIDO,
+                                   FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
+                                   SUELDO = (decimal)empleado.SUELDO,
+                                   IDSEXO = (int)empleado.IDSEXO,
+                               }).ToList();
+                        Session["lista"] = lst;
+                    }
+                    else
+                    {
+                        lst = (from empleado in db.Empleado
+                               where empleado.HABILITADO == 0 && empleado.APELLIDO.Contains(apeEmp)
+                               select new EmpleadoCLS
+                               {
+                                   IDEMPLEADO = empleado.IDEMPLEADO,
+                                   NOMBRE = empleado.NOMBRE,
+                                   APELLIDO = empleado.APELLIDO,
+                                   FECHACONTRATO = (DateTime)empleado.FECHACONTRATO,
+                                   SUELDO = (decimal)empleado.SUELDO,
+                                   IDSEXO = (int)empleado.IDSEXO,
+                               }).ToList();
+                        Session["lista"] = lst;
+                    }
+
+                    return View(lst);
+                }
             }
         }
 
@@ -159,12 +214,12 @@ namespace Primera_Web_App.Controllers
         {
             using (var db = new P_W_A_Entities())
             {
-               listaSexo = (from d in db.SEXO
-                            select new SelectListItem
-                         {
-                             Text = d.DESCRIPCION,
-                             Value = d.IDSEXO.ToString(),
-                         }).ToList();
+                listaSexo = (from d in db.SEXO
+                             select new SelectListItem
+                             {
+                                 Text = d.DESCRIPCION,
+                                 Value = d.IDSEXO.ToString(),
+                             }).ToList();
                 listaSexo.Insert(0, new SelectListItem { Text = "--Seleccione--", Value = "" });
             }
 
@@ -183,32 +238,48 @@ namespace Primera_Web_App.Controllers
         [HttpPost]
         public ActionResult Agregar(EmpleadoCLS oEmpleadoCLS)
         {
-            if (!ModelState.IsValid)
+            if (Session["UserId"] == null)
             {
-                LlenarSexo();
-                ViewBag.lista = listaSexo;
-                return View(oEmpleadoCLS);
+                return RedirectToAction("Login", "Login");
             }
             else
             {
-                using(var db = new P_W_A_Entities())
+                int cantReg = 0;
+                string numdoc = oEmpleadoCLS.NUMDOCUMENTO;
+                using (var db = new P_W_A_Entities())
                 {
-                    Empleado oEmpleado = new Empleado();
-                    oEmpleado.NOMBRE = oEmpleadoCLS.NOMBRE;
-                    oEmpleado.APELLIDO = oEmpleadoCLS.APELLIDO;
-                    oEmpleado.FECHACONTRATO = oEmpleadoCLS.FECHACONTRATO;
-                    oEmpleado.SUELDO = oEmpleadoCLS.SUELDO;
-                    oEmpleado.IDSEXO = oEmpleadoCLS.IDSEXO;
-                    oEmpleado.HABILITADO = 1;
-                    oEmpleado.IDTIPOUSUARIO = 1;
-                    oEmpleado.IDTIPOCONTRATO = 1;
-                    oEmpleado.TIPOUSUARIO = "A";
-                    oEmpleado.TIENEUSUARIO = 1;
-                    db.Empleado.Add(oEmpleado);
-                    db.SaveChanges();
-
+                    cantReg = db.Empleado.Where(e => e.NUMDOCUMENTO.Equals(numdoc)).Count();
                 }
-                return RedirectToAction("Index");
+                if (cantReg >= 1)
+                {
+                    ModelState.AddModelError("DNI", "DNI YA EXISTENTE");
+                   // oEmpleadoCLS.mensajeError = "¡¡ Ya Exite un Empleado con ese documento";
+                    LlenarSexo();
+                    ViewBag.lista = listaSexo;
+                    return View(oEmpleadoCLS);
+                }
+                else
+                {
+                    using (var db = new P_W_A_Entities())
+                    {
+                        Empleado oEmpleado = new Empleado();
+                        oEmpleado.NOMBRE = oEmpleadoCLS.NOMBRE;
+                        oEmpleado.APELLIDO = oEmpleadoCLS.APELLIDO;
+                        oEmpleado.FECHACONTRATO = oEmpleadoCLS.FECHACONTRATO;
+                        oEmpleado.SUELDO = oEmpleadoCLS.SUELDO;
+                        oEmpleado.IDSEXO = oEmpleadoCLS.IDSEXO;
+                        oEmpleado.NUMDOCUMENTO = oEmpleadoCLS.NUMDOCUMENTO;
+                        oEmpleado.HABILITADO = 1;
+                        oEmpleado.IDTIPOUSUARIO = 1;
+                        oEmpleado.IDTIPOCONTRATO = 1;
+                        oEmpleado.TIPOUSUARIO = "A";
+                        oEmpleado.TIENEUSUARIO = 1;
+                        db.Empleado.Add(oEmpleado);
+                        db.SaveChanges();
+
+                    }
+                    return RedirectToAction("Index");
+                }
             }
         }
 
@@ -220,7 +291,7 @@ namespace Primera_Web_App.Controllers
             ViewBag.lista = listaSexo;
             EmpleadoCLS oEmpleadoCLS = new EmpleadoCLS();
 
-            using ( var db = new P_W_A_Entities())
+            using (var db = new P_W_A_Entities())
             {
                 Empleado oEmpleado = db.Empleado.Where(p => p.IDEMPLEADO.Equals(id)).First();
                 oEmpleadoCLS.IDEMPLEADO = oEmpleado.IDEMPLEADO;
@@ -238,13 +309,20 @@ namespace Primera_Web_App.Controllers
         public ActionResult Editar(EmpleadoCLS oEmpleadoCLS)
         {
             int id = oEmpleadoCLS.IDEMPLEADO;
-            if (!ModelState.IsValid)
+            if (Session["UserId"] == null)
             {
-                LlenarSexo();
-                ViewBag.lista = listaSexo;
-                return View(oEmpleadoCLS);
+                return RedirectToAction("Login", "Login");
             }
-            using(var db = new P_W_A_Entities())
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    LlenarSexo();
+                    ViewBag.lista = listaSexo;
+                 //   return View(oEmpleadoCLS);
+                }
+            }
+                using (var db = new P_W_A_Entities())
                 {
                     Empleado oEmpleado = db.Empleado.Where(p => p.IDEMPLEADO.Equals(id)).First();
                     oEmpleado.NOMBRE = oEmpleadoCLS.NOMBRE;
@@ -254,22 +332,27 @@ namespace Primera_Web_App.Controllers
                     oEmpleado.IDSEXO = oEmpleadoCLS.IDSEXO;
                     db.SaveChanges();
                 }
-        
-            return RedirectToAction("Index");
-        }
-
+                return RedirectToAction("Index");
+         }
+    
         // GET: Empleado/Delete/5
         [HttpGet]
         public ActionResult Eliminar(int id)
         {
-            using (var db = new P_W_A_Entities())
+            if (Session["UserId"] == null)
             {
-                Empleado oEmpleado = db.Empleado.Where(p => p.IDEMPLEADO.Equals(id)).First();
-                oEmpleado.HABILITADO = 0;
-                db.SaveChanges();
+                return RedirectToAction("Login", "Login");
             }
-
+            else
+            {
+                using (var db = new P_W_A_Entities())
+                {
+                    Empleado oEmpleado = db.Empleado.Where(p => p.IDEMPLEADO.Equals(id)).First();
+                    oEmpleado.HABILITADO = 0;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
+            }
         }
     }
 }
