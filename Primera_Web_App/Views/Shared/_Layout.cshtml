@@ -25,12 +25,16 @@
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Empleado", "index", "Empleado")</li>
-                    <li>@Html.ActionLink("Salir", "Index", "Home")</li>                    
-                </ul>                
+                    <li>@Html.ActionLink("Restaurar Empleados", "EmpEliminado", "Empleado")</li>
+                </ul>
+                <ul align="right" class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Salir", "Index", "Home")</li>
+                </ul>              
              </div>
         </div>
     </div>
     <div class="container body-content">
+        <ul align="right" class="nav navbar-nav navbar-right"><strong>Bienvenido </strong> @HttpContext.Current.Session["Saludo"]</ul>
         @RenderBody()
         <hr />
         <footer>

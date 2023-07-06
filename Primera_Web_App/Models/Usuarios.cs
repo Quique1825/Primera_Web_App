@@ -17,14 +17,8 @@ namespace Primera_Web_App.Models
         public int ID_USUARIO { get; set; }
         public string USUARIO { get; set; }
         public string PASSWORD { get; set; }
-
-        internal bool Autenticar(string nombreUsuario, string contraseña)
-        {
-            throw new NotImplementedException();
-        }
-
         public Nullable<int> HABILITADO { get; set; }
         public string TIPOUSUARIO { get; set; }
-        public string ConfirmarClave { get; internal set; }
+        public string NOMUSUARIO { get; set; }
     }
 }

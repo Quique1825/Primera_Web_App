@@ -22,10 +22,12 @@ namespace Primera_Web_App.Models
             public int HABILITADO { get; set; }
             public string TIPOUSUARIO { get; set; }
 
+            public string NOMUSUARIO { get; set; }
+
             public string ConfirmarClave { get; set; }
 
-        public String nombreUsuario { get; set; }
-        public String contraseña { get; set; }
+            public String nombreUsuario { get; set; }
+            public String contraseña { get; set; }
 
 
     }

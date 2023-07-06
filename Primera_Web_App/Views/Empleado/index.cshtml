@@ -2,59 +2,91 @@
 
 
 <h2>Listado de Empleados</h2>
-@Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("AGREGAR", "Agregar", "Empleado", null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
 @Html.ActionLink("GENERAR PDF", "generarPDF", "Empleado", null, new { @class = "btn btn-primary", @target = " " })
-@Html.ActionLink("GENERAR Excel", "generarEXCEL", "Empleado", null, new { @class = "btn btn-success"})
+@Html.ActionLink("GENERAR Excel", "generarEXCEL", "Empleado", null, new { @class = "btn btn-success" })
 <hr />
-@using (Html.BeginForm("index", "Empleado", FormMethod.Get))
+@using (Html.BeginForm("Index", "Empleado", FormMethod.Get))
 {
     @Html.Label("Buscar por Apellido :")
     @Html.TextBox("APELLIDO")
-}
-<input id="Button" type="submit" class="btn btn-warning" value="Filtrar" />
-<hr />
+    <input id="Button" type="submit" class="btn btn-warning" value="Filtrar" />
+    <hr />
 
-<table class="table tab-content table-bordered table-hover">
-    <thead style="color:darkblue">
-        <tr>
-            <td>#</td>
-            <td width="15%">Nombre</td>
-            <td width="15%">Apellido</td>
-            <td width="15%">Fecha de Contrato</td>
-            <td width="10%">Sueldo</td>
-            <td width="5%">Sexo</td>
+    <table class="table tab-content table-bordered table-hover">
+        <thead style="color:darkblue">
+            <tr>
+                <td>#</td>
+                <td width="15%">Nombre</td>
+                <td width="15%">Apellido</td>
+                <td width="15%">Fecha de Contrato</td>
+                <td width="10%">Sueldo</td>
+                <td width="5%">Sexo</td>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var oElemento in Model)
-        {
-            <tr class="text-warning">
-                <td>@oElemento.IDEMPLEADO</td>
-                <td>@oElemento.NOMBRE</td>
-                <td>@oElemento.APELLIDO</td>
-                <td>@oElemento.FECHACONTRATO</td>
-                <td>@oElemento.SUELDO</td>
-                <td>
-                    @if (oElemento.IDSEXO == 1)
-                    {<strong>Femenino</strong>}
-                    else
-                    { <strong>Masculino</strong>}
-                </td>
-
-                <td align="center">
-                    @Html.ActionLink(" ", "Editar", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
-                    @Html.ActionLink(" ", "Eliminar", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "eliminar()" })
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr class="text-warning">
+                    <td>@oElemento.IDEMPLEADO</td>
+                    <td>@oElemento.NOMBRE</td>
+                    <td>@oElemento.APELLIDO</td>
+                    <td>@oElemento.FECHACONTRATO</td>
+                    <td>@oElemento.SUELDO</td>
+                    <td>
+                        @if (oElemento.IDSEXO == 1)
+                        {<strong>Femenino</strong>}
+                        else
+                        { <strong>Masculino</strong>}
+                    </td>
+
+                    <td align="right">
+                        @Html.ActionLink(" ", "Editar", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                        @*Html.ActionLink(" ", "Eliminar", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "eliminar()" })*@
+                        <button type="button" onclick="mostrarPopup(@oElemento.IDEMPLEADO)"class="glyphicon glyphicon-trash btn btn-danger" data-toggle="modal" data-target="#exampleModal"></button>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@using(Html.BeginForm("Eliminar","Empleado", FormMethod.Post, new {@id= "frmEliminar"}))
+            {
+                @Html.Hidden("IDEMPLEADO");
+            }
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLongTitle">Baja de Empleado</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>¿Desea Eliminar al Empleado?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="Eliminar()" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    function Eliminar() {
-        if (confirm("¿Desea Eliminar el Empleado?") == true) {
-            alert()
-        }
+    function mostrarPopup(IDEMPLEADO) {
+        document.getElementById("IDEMPLEADO").value = IDEMPLEADO;
+
     }
+    function eliminar() {
+        var frmEliminar = document.getElementById("frmEliminar");
+        frmEliminar.submit();
+        }
 </script>
+
+
 

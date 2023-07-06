@@ -25,6 +25,7 @@ namespace Primera_Web_App.Models
         public Nullable<int> HABILITADO { get; set; }
         public Nullable<int> TIENEUSUARIO { get; set; }
         public string TIPOUSUARIO { get; set; }
+        public string NUMDOCUMENTO { get; set; }
     
         public virtual SEXO SEXO { get; set; }
     }
