@@ -337,6 +337,7 @@
       <DependentUpon>EmpleadoModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Pagina.cs">
+    <Compile Include="Models\SEXO.cs">
       <DependentUpon>EmpleadoModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rol.cs">
@@ -436,10 +437,10 @@
     <Content Include="Views\Empleado\Agregar.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Registrar.cshtml" />
-    <Content Include="Views\Empleado\Editar.cshtml" />
     <Content Include="Views\Empleado\EmpEliminado.cshtml" />
     <Content Include="Views\Rol\Index.cshtml" />
     <Content Include="Views\Rol\_TablaRol.cshtml" />
+    <Content Include="Views\Empleado\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,61 +11,61 @@
 
 <body>
 
-    <h2>Listado de Empleados</h2>
-    @Html.ActionLink("GENERAR PDF", "generarPDF", "Empleado", null, new { @class = "btn btn-primary", @target = " " })
-    @Html.ActionLink("GENERAR Excel", "generarEXCEL", "Empleado", null, new { @class = "btn btn-success" })
+<h2>Listado de Empleados</h2>
+@Html.ActionLink("GENERAR PDF", "generarPDF", "Empleado", null, new { @class = "btn btn-primary", @target = " " })
+@Html.ActionLink("GENERAR Excel", "generarEXCEL", "Empleado", null, new { @class = "btn btn-success" })
 
+<hr />
+@using (Html.BeginForm("EmpEliminado", "Empleado", FormMethod.Get))
+{
+    @Html.Label("Buscar por Apellido : ")
+    @Html.TextBox(" APELLIDO ")
+    <input id="Button" type="submit" class="btn btn-warning" value="Filtrar" />
     <hr />
-    @using (Html.BeginForm("EmpEliminado", "Empleado", FormMethod.Get))
-    {
-        @Html.Label("Buscar por Apellido : ")
-        @Html.TextBox(" APELLIDO ")
-        <input id="Button" type="submit" class="btn btn-warning" value="Filtrar" />
-        <hr />
 
-        <table class="table tab-content table-bordered table-hover">
-            <thead style="color:darkblue">
-                <tr>
-                    <td>#</td>
-                    <td width="15%">Nombre</td>
-                    <td width="15%">Apellido</td>
-                    <td width="15%">Fecha de Contrato</td>
-                    <td width="10%">Sueldo</td>
-                    <td width="5%">Sexo</td>
+    <table class="table tab-content table-bordered table-hover">
+        <thead style="color:darkblue">
+            <tr>
+                <td>#</td>
+                <td width="15%">Nombre</td>
+                <td width="15%">Apellido</td>
+                <td width="15%">Fecha de Contrato</td>
+                <td width="10%">Sueldo</td>
+                <td width="5%">Sexo</td>
 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr class="text-warning">
+                    <td>@oElemento.IDEMPLEADO</td>
+                    <td>@oElemento.NOMBRE</td>
+                    <td>@oElemento.APELLIDO</td>
+                    <td>@oElemento.FECHACONTRATO</td>
+                    <td>@oElemento.SUELDO</td>
+                    <td>
+                        @if (oElemento.IDSEXO == 1)
+                        {<strong>Femenino</strong>}
+                        else
+                        { <strong>Masculino</strong>}
+                    </td>
+
+                    <td align="center">
+                        
+                        @Html.ActionLink("  Restaurar", "EmpEliminado", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-repeat  btn btn-danger", @onclick = "restaurar()" })
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var oElemento in Model)
-                {
-                    <tr class="text-warning">
-                        <td>@oElemento.IDEMPLEADO</td>
-                        <td>@oElemento.NOMBRE</td>
-                        <td>@oElemento.APELLIDO</td>
-                        <td>@oElemento.FECHACONTRATO</td>
-                        <td>@oElemento.SUELDO</td>
-                        <td>
-                            @if (oElemento.IDSEXO == 1)
-                            {<strong>Femenino</strong>}
-                            else
-                            { <strong>Masculino</strong>}
-                        </td>
-
-                        <td align="center">
-
-                            @Html.ActionLink("  Restaurar", "EmpEliminado", "Empleado", new { id = oElemento.IDEMPLEADO }, new { @class = "glyphicon glyphicon-repeat  btn btn-danger", @onclick = "restaurar()" })
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+            }
+        </tbody>
+    </table>
+}
     </body>
 </html>
 
-    <script>
-        function restaurar() {
-            if (confirm("¿Desea Restaurar el Empleado?") == true) {
-                alert("El Empleado a sido restaurado correctamente")
-            }
+<script>
+    function restaurar() {
+        if (confirm("¿Desea Restaurar el Empleado?") == true) {
+            alert("El Empleado a sido restaurado correctamente")
         }
-    </script>
+    }
+</script>
