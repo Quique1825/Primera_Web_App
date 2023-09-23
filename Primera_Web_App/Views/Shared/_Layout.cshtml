@@ -1,49 +1,52 @@
 ﻿<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi Aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Aplicacion en MVC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="nav navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Empleado", "index", "Empleado")</li>
-                    <li>@Html.ActionLink("Restaurar Empleados", "EmpEliminado", "Empleado")</li>
-                </ul>
-                <ul align="right" class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Salir", "Index", "Home")</li>
-                </ul>              
-             </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        <ul align="right" class="nav navbar-nav navbar-right"><strong>Bienvenido </strong> @HttpContext.Current.Session["Saludo"]</ul>
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi Aplicación ASP.NET</p>
-        </footer>
-    </div>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>@ViewBag.Title -- Mi Aplicación ASP.NET --</title>
+            @Styles.Render("~/Content/css")
+            @Scripts.Render("~/bundles/modernizr")
+        </head>
+            <body>
+                <div class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            @Html.ActionLink("Aplicacion en MVC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                                <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Empleado", "index", "Empleado")</li>
+                                <li>@Html.ActionLink("Roles", "Index", "Rol")</li>
+                                <li>@Html.ActionLink("Restaurar Empleados", "EmpEliminado", "Empleado")</li>
+                            </ul>
+                            <ul align="right" class="nav navbar-nav navbar-right">
+                                <li>@Html.ActionLink("Salir", "Index", "Home")</li>
+                            </ul>
+                         </div>
+                    </div>
+                </div>
+                <div class="container body-content">
+                    <ul align="right" class="nav navbar-nav navbar-right"><strong>Bienvenido </strong> @HttpContext.Current.Session["Saludo"]</ul>
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Mi Aplicación ASP.NET</p>
+                    </footer>
+                </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+                @Scripts.Render("~/bundles/jquery")
+                 <script src="~/Scripts/jquery-3.4.1.js"></script>
+                 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+                @Scripts.Render("~/bundles/bootstrap")
+                @RenderSection("scripts", required: false)
+            </body>
+    </html>

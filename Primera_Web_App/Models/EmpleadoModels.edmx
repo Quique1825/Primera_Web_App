@@ -22,7 +22,35 @@
           <Property Name="TIPOUSUARIO" Type="char" MaxLength="1" />
           <Property Name="NUMDOCUMENTO" Type="nvarchar" MaxLength="8" />
         </EntityType>
-        <EntityType Name="SEXO">
+        <EntityType Name="Pagina">
+          <Key>
+            <PropertyRef Name="IDPAGINA" />
+          </Key>
+          <Property Name="IDPAGINA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MENSAJE" Type="varchar" MaxLength="50" />
+          <Property Name="ACCION" Type="varchar" MaxLength="50" />
+          <Property Name="CONTROLADOR" Type="varchar" MaxLength="100" />
+          <Property Name="HABILITADO" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="HABILITADO" Type="int" />
+        </EntityType>
+        <EntityType Name="RolPagina">
+          <Key>
+            <PropertyRef Name="IDROLPAGINA" />
+          </Key>
+          <Property Name="IDROLPAGINA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDROL" Type="int" />
+          <Property Name="IDPAGINA" Type="int" />
+          <Property Name="HABILITADO" Type="int" />
+        </EntityType>
+        <EntityType Name="Sexo">
           <Key>
             <PropertyRef Name="IDSEXO" />
           </Key>
@@ -50,12 +78,50 @@
           <Property Name="HABILITADO" Type="int" />
           <Property Name="TIPOUSUARIO" Type="varchar" MaxLength="2" />
           <Property Name="NOMUSUARIO" Type="nchar" MaxLength="30" />
+          <Property Name="IDROL" Type="int" />
+          <Property Name="ID" Type="int" />
         </EntityType>
+        <Association Name="FK__RolPagina__IDPAG__619B8048">
+          <End Role="Pagina" Type="Self.Pagina" Multiplicity="0..1" />
+          <End Role="RolPagina" Type="Self.RolPagina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pagina">
+              <PropertyRef Name="IDPAGINA" />
+            </Principal>
+            <Dependent Role="RolPagina">
+              <PropertyRef Name="IDPAGINA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolPagina__IDROL__60A75C0F">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="RolPagina" Type="Self.RolPagina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="RolPagina">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuarios__IDROL__628FA481">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Empleado_SEXO">
-          <End Role="SEXO" Type="Self.SEXO" Multiplicity="0..1" />
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SEXO">
+            <Principal Role="Sexo">
               <PropertyRef Name="IDSEXO" />
             </Principal>
             <Dependent Role="Empleado">
@@ -65,11 +131,26 @@
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SEXO" EntityType="Self.SEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagina" EntityType="Self.Pagina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolPagina" EntityType="Self.RolPagina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__RolPagina__IDPAG__619B8048" Association="Self.FK__RolPagina__IDPAG__619B8048">
+            <End Role="Pagina" EntitySet="Pagina" />
+            <End Role="RolPagina" EntitySet="RolPagina" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolPagina__IDROL__60A75C0F" Association="Self.FK__RolPagina__IDROL__60A75C0F">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolPagina" EntitySet="RolPagina" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuarios__IDROL__628FA481" Association="Self.FK__Usuarios__IDROL__628FA481">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
           <AssociationSet Name="FK_Empleado_SEXO" Association="Self.FK_Empleado_SEXO">
-            <End Role="SEXO" EntitySet="SEXO" />
+            <End Role="Sexo" EntitySet="Sexo" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
         </EntityContainer>
@@ -79,11 +160,26 @@
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="P_W_A_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Empleado" EntityType="Model.Empleado" />
-          <EntitySet Name="SEXO" EntityType="Model.SEXO" />
           <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
           <EntitySet Name="Usuarios" EntityType="Model.Usuarios" />
+          <EntitySet Name="Pagina" EntityType="Model.Pagina" />
+          <EntitySet Name="Rol" EntityType="Model.Rol" />
+          <EntitySet Name="RolPagina" EntityType="Model.RolPagina" />
+          <AssociationSet Name="FK__RolPagina__IDPAG__619B8048" Association="Model.FK__RolPagina__IDPAG__619B8048">
+            <End Role="Pagina" EntitySet="Pagina" />
+            <End Role="RolPagina" EntitySet="RolPagina" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolPagina__IDROL__60A75C0F" Association="Model.FK__RolPagina__IDROL__60A75C0F">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolPagina" EntitySet="RolPagina" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuarios__IDROL__628FA481" Association="Model.FK__Usuarios__IDROL__628FA481">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <EntitySet Name="Sexo" EntityType="Model.Sexo" />
           <AssociationSet Name="FK_Empleado_SEXO" Association="Model.FK_Empleado_SEXO">
-            <End Role="SEXO" EntitySet="SEXO" />
+            <End Role="Sexo" EntitySet="Sexo" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
         </EntityContainer>
@@ -103,16 +199,7 @@
           <Property Name="TIENEUSUARIO" Type="Int32" />
           <Property Name="TIPOUSUARIO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="NUMDOCUMENTO" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SEXO" Relationship="Model.FK_Empleado_SEXO" FromRole="Empleado" ToRole="SEXO" />
-        </EntityType>
-        <EntityType Name="SEXO">
-          <Key>
-            <PropertyRef Name="IDSEXO" />
-          </Key>
-          <Property Name="IDSEXO" Type="Int32" Nullable="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="HABILITADO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Empleado" Relationship="Model.FK_Empleado_SEXO" FromRole="SEXO" ToRole="Empleado" />
+          <NavigationProperty Name="Sexo" Relationship="Model.FK_Empleado_SEXO" FromRole="Empleado" ToRole="Sexo" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -134,12 +221,93 @@
           <Property Name="HABILITADO" Type="Int32" />
           <Property Name="TIPOUSUARIO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="NOMUSUARIO" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="IDROL" Type="Int32" />
+          <Property Name="ID" Type="Int32" />
+          <NavigationProperty Name="Rol" Relationship="Model.FK__Usuarios__IDROL__628FA481" FromRole="Usuarios" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Pagina">
+          <Key>
+            <PropertyRef Name="IDPAGINA" />
+          </Key>
+          <Property Name="IDPAGINA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MENSAJE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLADOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HABILITADO" Type="Int32" />
+          <NavigationProperty Name="RolPagina" Relationship="Model.FK__RolPagina__IDPAG__619B8048" FromRole="Pagina" ToRole="RolPagina" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HABILITADO" Type="Int32" />
+          <NavigationProperty Name="RolPagina" Relationship="Model.FK__RolPagina__IDROL__60A75C0F" FromRole="Rol" ToRole="RolPagina" />
+          <NavigationProperty Name="Usuarios" Relationship="Model.FK__Usuarios__IDROL__628FA481" FromRole="Rol" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="RolPagina">
+          <Key>
+            <PropertyRef Name="IDROLPAGINA" />
+          </Key>
+          <Property Name="IDROLPAGINA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDROL" Type="Int32" />
+          <Property Name="IDPAGINA" Type="Int32" />
+          <Property Name="HABILITADO" Type="Int32" />
+          <NavigationProperty Name="Pagina" Relationship="Model.FK__RolPagina__IDPAG__619B8048" FromRole="RolPagina" ToRole="Pagina" />
+          <NavigationProperty Name="Rol" Relationship="Model.FK__RolPagina__IDROL__60A75C0F" FromRole="RolPagina" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK__RolPagina__IDPAG__619B8048">
+          <End Type="Model.Pagina" Role="Pagina" Multiplicity="0..1" />
+          <End Type="Model.RolPagina" Role="RolPagina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pagina">
+              <PropertyRef Name="IDPAGINA" />
+            </Principal>
+            <Dependent Role="RolPagina">
+              <PropertyRef Name="IDPAGINA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolPagina__IDROL__60A75C0F">
+          <End Type="Model.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="Model.RolPagina" Role="RolPagina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="RolPagina">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuarios__IDROL__628FA481">
+          <End Type="Model.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="Model.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="IDSEXO" />
+          </Key>
+          <Property Name="IDSEXO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HABILITADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Model.FK_Empleado_SEXO" FromRole="Sexo" ToRole="Empleado" />
         </EntityType>
         <Association Name="FK_Empleado_SEXO">
-          <End Type="Model.SEXO" Role="SEXO" Multiplicity="0..1" />
+          <End Type="Model.Sexo" Role="Sexo" Multiplicity="0..1" />
           <End Type="Model.Empleado" Role="Empleado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SEXO">
+            <Principal Role="Sexo">
               <PropertyRef Name="IDSEXO" />
             </Principal>
             <Dependent Role="Empleado">
@@ -171,15 +339,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SEXO">
-            <EntityTypeMapping TypeName="Model.SEXO">
-              <MappingFragment StoreEntitySet="SEXO">
-                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="IDSEXO" ColumnName="IDSEXO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="Model.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -194,12 +353,54 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="Model.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
                 <ScalarProperty Name="NOMUSUARIO" ColumnName="NOMUSUARIO" />
                 <ScalarProperty Name="TIPOUSUARIO" ColumnName="TIPOUSUARIO" />
                 <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagina">
+            <EntityTypeMapping TypeName="Model.Pagina">
+              <MappingFragment StoreEntitySet="Pagina">
+                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+                <ScalarProperty Name="CONTROLADOR" ColumnName="CONTROLADOR" />
+                <ScalarProperty Name="ACCION" ColumnName="ACCION" />
+                <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
+                <ScalarProperty Name="IDPAGINA" ColumnName="IDPAGINA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="Model.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolPagina">
+            <EntityTypeMapping TypeName="Model.RolPagina">
+              <MappingFragment StoreEntitySet="RolPagina">
+                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+                <ScalarProperty Name="IDPAGINA" ColumnName="IDPAGINA" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+                <ScalarProperty Name="IDROLPAGINA" ColumnName="IDROLPAGINA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="Model.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="IDSEXO" ColumnName="IDSEXO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

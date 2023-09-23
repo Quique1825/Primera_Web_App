@@ -12,19 +12,23 @@ namespace Primera_Web_App.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sexo
+    public partial class Rol
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sexo()
+        public Rol()
         {
-            this.Empleado = new HashSet<Empleado>();
+            this.RolPagina = new HashSet<RolPagina>();
+            this.Usuarios = new HashSet<Usuarios>();
         }
     
-        public int IDSEXO { get; set; }
+        public int IDROL { get; set; }
+        public string NOMBRE { get; set; }
         public string DESCRIPCION { get; set; }
-        public int HABILITADO { get; set; }
+        public Nullable<int> HABILITADO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<RolPagina> RolPagina { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

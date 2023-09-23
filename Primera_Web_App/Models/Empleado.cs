@@ -27,6 +27,6 @@ namespace Primera_Web_App.Models
         public string TIPOUSUARIO { get; set; }
         public string NUMDOCUMENTO { get; set; }
     
-        public virtual SEXO SEXO { get; set; }
+        public virtual Sexo Sexo { get; set; }
     }
 }

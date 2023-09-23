@@ -6,9 +6,15 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ea60d8729926466db8a2091b019c1b9b" Name="Diagram1">
         <EntityTypeShape EntityType="Model.Empleado" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.SEXO" Width="1.5" PointX="0.75" PointY="1.625" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="5.125" PointY="1.875" />
         <EntityTypeShape EntityType="Model.Usuarios" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.Pagina" Width="1.5" PointX="3.75" PointY="8" />
+        <EntityTypeShape EntityType="Model.Rol" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="Model.RolPagina" Width="1.5" PointX="5.5" PointY="4.5" />
+        <AssociationConnector Association="Model.FK__RolPagina__IDPAG__619B8048" />
+        <AssociationConnector Association="Model.FK__RolPagina__IDROL__60A75C0F" />
+        <AssociationConnector Association="Model.FK__Usuarios__IDROL__628FA481" />
+        <EntityTypeShape EntityType="Model.Sexo" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="Model.FK_Empleado_SEXO" />
       </Diagram>
     </edmx:Diagrams>

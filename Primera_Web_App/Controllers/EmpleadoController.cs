@@ -214,7 +214,7 @@ namespace Primera_Web_App.Controllers
         {
             using (var db = new P_W_A_Entities())
             {
-                listaSexo = (from d in db.SEXO
+                listaSexo = (from d in db.Sexo
                              select new SelectListItem
                              {
                                  Text = d.DESCRIPCION,

@@ -1,0 +1,30 @@
+﻿@model List<Primera_Web_App.Models.RolCLS>
+
+<table class="table tab-content table-bordered table-hover">
+        <tr>
+            <th>ID ROL</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th align="center"><b>OPERACIONES</b></th>
+        </tr>
+
+    @foreach (var item in Model)
+     {
+        <tr>
+        <td>
+                @Html.DisplayFor(modelItem => item.IDROL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCRIPCION)
+            </td>
+            <td align="center">
+                <button type="button" onclick="Editar(@item.IDROL)" class="btn btn-primary glyphicon glyphicon-edit" data-toggle="modal" data-target="#exampleModal"></button>          
+                <button type="button" onclick="Eliminar(@item.IDROL)" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#EliminarConfirmacion"></button>      
+             </td>
+        </tr>
+      }
+</table>
+

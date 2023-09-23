@@ -9,5 +9,6 @@ namespace Primera_Web_App.Models
     {
         public int IDSEXO { get; set; }
         public string DESCRIPCION { get; set; }
+        public int HABILITADO { get; set; }
     }
 }

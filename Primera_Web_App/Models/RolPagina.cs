@@ -12,17 +12,14 @@ namespace Primera_Web_App.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuarios
+    public partial class RolPagina
     {
-        public int ID_USUARIO { get; set; }
-        public string USUARIO { get; set; }
-        public string PASSWORD { get; set; }
-        public Nullable<int> HABILITADO { get; set; }
-        public string TIPOUSUARIO { get; set; }
-        public string NOMUSUARIO { get; set; }
+        public int IDROLPAGINA { get; set; }
         public Nullable<int> IDROL { get; set; }
-        public Nullable<int> ID { get; set; }
+        public Nullable<int> IDPAGINA { get; set; }
+        public Nullable<int> HABILITADO { get; set; }
     
+        public virtual Pagina Pagina { get; set; }
         public virtual Rol Rol { get; set; }
     }
 }

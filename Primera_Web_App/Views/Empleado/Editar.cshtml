@@ -3,69 +3,77 @@
     ViewBag.Title = "EDITAR";
     List<SelectListItem> listaSexo = (List<SelectListItem>)ViewBag.lista;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EDITAR Empleados</title>
+    <!-- Referencias de Bootstrap  on line y para el sitio -->
+</head>
 
-<h2>EDITAR EMPLEADO</h2>
+  <body>    
+    <div class="row">
+        <div class="row-cols-6">
+            @using (Html.BeginForm("Editar", "Empleado", FormMethod.Post))
+            {
+                <hr />
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.IDEMPLEADO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(p => p.IDEMPLEADO, new { @class = "form-control", @readOnly = true })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(p => p.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessage("Nombre", new { @class = "text_danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.APELLIDO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(p => p.APELLIDO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessage("Apellido", new { @class = "text_danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.FECHACONTRATO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(p => p.FECHACONTRATO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(p => p.FECHACONTRATO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.SUELDO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(p => p.SUELDO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessage("Sueldo", new { @class = "text_danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(p => p.IDSEXO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("IDSEXO", listaSexo, null, new { @class = "form-control" })
+                        @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        @Html.ActionLink("Volver", "Index", "Empleado", null, new { @class = "btn btn-info" })
+                        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                    </div>
+                </div>
+             }
 
-<div class="row">
-    <div class="row-cols-6">
-        @using (Html.BeginForm("Editar", "Empleado", FormMethod.Post))
-        {
-            <hr />
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.IDEMPLEADO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(p => p.IDEMPLEADO, new { @class = "form-control", @readOnly = true })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(p => p.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessage("Nombre", new { @class = "text_danger" })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.APELLIDO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(p => p.APELLIDO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessage("Apellido", new { @class = "text_danger" })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.FECHACONTRATO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(p => p.FECHACONTRATO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(p => p.FECHACONTRATO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.SUELDO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(p => p.SUELDO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessage("Sueldo", new { @class = "text_danger" })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(p => p.IDSEXO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.DropDownList("IDSEXO", listaSexo, null, new { @class = "form-control" })
-                    @Html.ValidationMessage("Sexo", new { @class = "text-danger" })
-                </div>
-            </div>
-            <br /><br />
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-6">
-                    @Html.ActionLink("Volver", "Index", "Empleado", null, new { @class = "btn btn-info" })
-                    <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-                </div>
-            </div>
-        }
-        
-    </div>    
- </div>
+        </div>
+    </div>
+  </body>
+</html>

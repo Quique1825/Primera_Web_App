@@ -47,7 +47,7 @@ namespace Primera_Web_App.Models
 
             public string mensajeError { get; set; }
 
-           public virtual SEXO Sexo { get; set; }
+            public virtual SexoCLS Sexo { get; set; }
 
     }
 }
